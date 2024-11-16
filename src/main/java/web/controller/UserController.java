@@ -21,12 +21,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/")
-    public String welcome() {
+    public String redirectUsersPage() {
         return "redirect:/users";
     }
 
     @GetMapping(value = "users")
-    public String allUsers(ModelMap model) {
+    public String showAllUsers(ModelMap model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
@@ -63,14 +63,14 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("users/delete")
+    @DeleteMapping("users/delete")
     public String deleteUserById(@RequestParam("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/";
     }
 
     @GetMapping("users/{id}")
-    public String show(@PathVariable("id") Long id, ModelMap modelMap) {
+    public String showUserPage(@PathVariable("id") Long id, ModelMap modelMap) {
         modelMap.addAttribute("user", userService.getUserById(id));
         return "show";
     }
